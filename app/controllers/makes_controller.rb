@@ -5,6 +5,7 @@ class MakesController < ApplicationController
   # GET /makes.json
   def index
     @makes = Make.all
+
   end
 
   # GET /makes/1
@@ -67,7 +68,20 @@ class MakesController < ApplicationController
       @make = Make.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+  test "Make name shouldn't be empty" do
+    assert Make.where("name like ?", "vw").length == 0
+  end
+
+  #test "should create make" do
+   # assert_difference('Make.count') do
+    #  post makes_url, params: { make: { name: @make.name } }
+    #end
+
+    #assert_redirected_to make_url(Make.last)
+  #end
+
+
+  # Never trust parameters from the scary internet, only allow the white list through.
     def make_params
       params.require(:make).permit(:name)
     end

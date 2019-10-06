@@ -18,6 +18,10 @@ class PartsController < ApplicationController
     @cars = Car.all
   end
 
+  test "Part name shouldn't be empty" do
+    assert Part.where("name like ?", "horn").length == 0
+  end
+
   # GET /parts/1/edit
   def edit
     @cars = Car.all

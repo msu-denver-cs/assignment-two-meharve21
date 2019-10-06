@@ -2,6 +2,20 @@
 
 <h1>Cars</h1>
 
+<h2>All Cars</h2>
+
+<h4>Search by Make:</h4>
+<%= form_tag(cars_path, method: :get) do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag ("Search") %>
+<% end %>
+
+<% @cars.each do |car| %>
+  <ul>
+    <li><%= link_to car.name, car_path(make) %></li><br>
+  </ul>
+<% end %>
+
 <table>
   <thead>
     <tr>

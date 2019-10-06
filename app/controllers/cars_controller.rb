@@ -5,6 +5,7 @@ class CarsController < ApplicationController
   # GET /cars.json
   def index
     @cars = Car.all
+    @cars = Car.search(params[:search])
   end
 
   # GET /cars/1
@@ -71,8 +72,19 @@ class CarsController < ApplicationController
       @car = Car.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+  test "Car name shouldn't be empty" do
+    assert Car.where("name like ?", "x5").length == 0
+  end
+
+  test "shouldn't find Maserati" do
+    get search_cars_url, params: { search: "Maserati" }
+    assert_select 'td', false
+  end
+
+
+
+  # Never trust parameters from the scary internet, only allow the white list through.
     def car_params
-      params.require(:car).permit(:name, :make_id => [], :part_id => [])
+      params.require(:car).permit(:name, :search, :make_id => [], :part_id => [])
     end
 end
